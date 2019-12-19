@@ -52,6 +52,14 @@ class Vector{
     dimension=elements.size();
   }
 
+  Vector(vertex_t& vec3){
+    this->elements.push_back(vec3.x);
+    this->elements.push_back(vec3.y);
+    this->elements.push_back(vec3.z);
+    dimension=elements.size();
+  }
+
+
   // Read-only operator
   Vector(){};
     double operator()(unsigned int index){

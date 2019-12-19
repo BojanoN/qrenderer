@@ -11,12 +11,19 @@ public:
   Vector center_pos;
   Vector v_up;
 
+  Vector eye_pos3;
+  Vector center_pos3;
+  Vector v_up3;
+
   Camera(double e_x, double e_y, double e_z,
          double c_x, double c_y, double c_z,
          double v_x, double v_y, double v_z,
          double f):eye_pos(e_x, e_y, e_z, 1),
                    center_pos(c_x, c_y, c_z, 1),
                    v_up(v_x, v_y, v_z, 1),
+                   eye_pos3(e_x, e_y, e_z),
+                   center_pos3(c_x, c_y, c_z),
+                   v_up3(v_x, v_y, v_z),
                    fov(f),
                    total_pitch(0)
   {

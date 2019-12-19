@@ -71,7 +71,6 @@ void Camera::handle_mouse(int xrel, int yrel){
 
      if(tmp>-88.0f && tmp<88.0f){
       total_pitch = tmp;
-      printf("%lf\n", total_pitch);
       Matrix rot_mat = MatrixUtil::axisAngleRotMatrix(u, xrot_angle);
 
       result = result * rot_mat;
@@ -79,7 +78,7 @@ void Camera::handle_mouse(int xrel, int yrel){
       this->center_pos[1] = result(0,1);
       this->center_pos[2] = result(0,2);
     
-       }
+      }
   }
 }
 

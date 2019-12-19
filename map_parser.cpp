@@ -1,27 +1,16 @@
 #include"map_parser.hpp"
 
 Map::~Map(){
-  std::cout<<"benis\n";
   delete[] nodes;
 
-  std::cout<<"beni\n";
   delete[] planes;
-  std::cout<<"ben\n";
-   delete[] entities->data;
-  std::cout<<"be\n";
+  delete[] entities->data;
   delete entities;
-  std::cout<<"b\n";
   delete[] textures;
-  std::cout<<"enis\n";
   delete[] leaves;
-
-  std::cout<<"nis\n";
   delete[] models;
-  std::cout<<"is\n";
   delete[] vertices;
-  std::cout<<"s\n";
   delete[] lightmaps;
-  std::cout<<"sa\n";
   delete[] visdata;
   delete[] meshverts;
   delete[] faces;
@@ -35,7 +24,6 @@ Map::Map(char* filename):map_file(filename){
   map_file.read(reinterpret_cast<char*>(&(this->map_header)), sizeof(dheader_t));
   //TODO: forsirat provjeru version polja, dodat entrye koji potencijalno fale
   //IDEJA: ispis ovisno o log levelu
-  //STRUKTURNI DIO: stvorit sučelje Map kojeg će onda implementirat mape za Q1,Q2,Q3, etc...
 
   printf("%.*s\nVersion: %x\n", 4, map_header.str, map_header.version);
 
@@ -112,7 +100,6 @@ Map::Map(char* filename):map_file(filename){
   int32_t width ;
   int32_t height ;
   std::vector<TesselatedBezier*> patch_vertices;
-  std::cout<<"benis\n";
 
   for(unsigned int i=0; i<numfaces; i++){
     switch(faces[i].type){
@@ -151,7 +138,6 @@ Map::Map(char* filename):map_file(filename){
       break;
     }
   }
-  std::cout<<"benis\n";
 
 
 };

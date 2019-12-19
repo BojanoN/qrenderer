@@ -1,16 +1,15 @@
-#include"map_parser.hpp"
-#include"camera.hpp"
-#include"GLrenderer.cpp"
+#include "map_parser.hpp"
+#include "camera.hpp"
+#include "GLrenderer.cpp"
+#include "soft_renderer.cpp"
 #include "utility.hpp"
 #include <SDL2/SDL_opengl.h>
 #include<unistd.h>
 #include "zip_archive.hpp"
 
 
-//TODO: ucitavanje tekstura iz pk3 arhive uz pomoc SOIL-a
-
-
-SDL_Window* SDLinit(){
+/*
+SDL_Window* SDLGlinit(){
 
   SDL_Init( SDL_INIT_EVERYTHING );
 
@@ -31,14 +30,9 @@ SDL_Window* SDLinit(){
 
 void GLinit(){
   
-  glClearColor( 1.0f, 1.0f, 1.0f, 0.0f );
-	glClear( GL_COLOR_BUFFER_BIT );
-	glPointSize(1.0);
-	glColor3f(0.0f, 0.0f, 0.0f);
 
-  glClear(GL_COLOR_BUFFER_BIT);
 
-}
+}*/
 
 int main(int argc, char** argv){
   
@@ -51,7 +45,8 @@ int main(int argc, char** argv){
   Camera camera(50,50,50,-10,-10,-10,0,1,0, 53);
   Renderer* gl;
 
-  try{
+
+  /*try{
     screen = SDLinit();
     context = SDL_GL_CreateContext(screen);
     GLinit();
@@ -61,15 +56,16 @@ int main(int argc, char** argv){
     std::cout<<"An exception occured during initialization: "<<e.what()<<"\n";
     exit(2);
   }
-  SDL_GL_MakeCurrent(screen, context);
+  SDL_GL_MakeCurrent(screen, context);*/
   atexit(SDL_Quit);
 
-  std::cout<<"wew\n";
 
-  map= new Map("data/mpq3ctf1.bsp");
-  std::cout<<"wew\n";
+  map = new Map("data/mpq3ctf1.bsp");
 
-  gl = new GLRenderer(map, &camera);
+  //gl = new GLRenderer(map, &camera);
+  gl = new SoftRenderer(map, &camera);
+
+  screen = gl->getScreen();
 
   unsigned int ref_time =  0;
   unsigned int cur_time;
@@ -113,7 +109,7 @@ int main(int argc, char** argv){
       no_frames = 0;
       ref_time = cur_time;
     }
-    gl->renderText(std::to_string(fps).c_str(), 970, 750);
+    //gl->renderText(std::to_string(fps).c_str(), 970, 750);
    
 
     SDL_GL_SwapWindow(screen );

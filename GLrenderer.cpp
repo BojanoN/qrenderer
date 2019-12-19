@@ -1,6 +1,7 @@
 #include"renderer.hpp"
 #include<GL/gl.h>
 #include<GL/glu.h>
+#include <SDL2/SDL_opengl.h>
 
 #include "utility.hpp"
 #include "zip_archive.hpp"
@@ -55,16 +56,44 @@ private:
     
   }
 
-  
+  SDL_Window* screen;
+
 public:
   Zip* z;
   GLRenderer(Map* m, Camera* c){
     this->map = m;
     this->camera = c;
     z = new Zip("textures.pk3", 0);
-
+    SDL_GLContext context;
     init_fontlib();
 
+    try{
+
+      SDL_Init( SDL_INIT_EVERYTHING );
+
+      SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 5 );
+      SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 5 );
+      SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 5 );
+      SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
+      SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+  
+      screen = SDL_CreateWindow("",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,Screen::width, Screen::height, SDL_WINDOW_OPENGL |   SDL_WINDOW_SHOWN);
+
+
+      context = SDL_GL_CreateContext(screen);
+      glClearColor( 1.0f, 1.0f, 1.0f, 0.0f );
+      glClear( GL_COLOR_BUFFER_BIT );
+      glPointSize(1.0);
+      glColor3f(0.0f, 0.0f, 0.0f);
+      
+      glClear(GL_COLOR_BUFFER_BIT);
+      SDL_GL_SetSwapInterval(0);
+      SDL_SetRelativeMouseMode(SDL_TRUE);
+      SDL_GL_MakeCurrent(screen, context);
+    }catch (std::exception& e){
+      std::cout<<"An exception occured during initialization: "<<e.what()<<"\n";
+      exit(2);
+    }
   }
   virtual ~GLRenderer(){};
   void renderFrame(){
@@ -96,5 +125,6 @@ public:
     glFlush();
   }
 
+  
 };
 

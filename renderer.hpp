@@ -50,6 +50,9 @@ public:
 
 
   }
+  SDL_Window* getScreen(){
+    return this->screen;
+  }
 
   void init_fontlib(){
     TTF_Init();
@@ -132,7 +135,7 @@ protected:
     }
 
   };
-
+  SDL_Window* screen;
   Map* map;
   Camera* camera;
   const char* all_chars =  "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
